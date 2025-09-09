@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import * as turf from "@turf/turf";
 import countries from '../data/countries.json'
@@ -31,15 +31,8 @@ const Map = () => {
             break;
           }
         }
-
-        console.log(selectedCountry);
       }
     });
-
-    return (
-      <Marker position={position}>
-      </Marker>
-    )
   }
 
 
@@ -51,6 +44,15 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
       <ClickMarker/>
+      <GeoJSON data={countries} style={{color: "blue"}}></GeoJSON>
+      {selectedCountry &&
+            <Marker position={selectedCountry.center}>
+            <Popup>
+              {selectedCountry.name}
+            </Popup>
+          </Marker>
+      }
+
     </MapContainer>
 
   );
