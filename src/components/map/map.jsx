@@ -2,10 +2,13 @@
 import React, {useState} from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import * as turf from "@turf/turf";
+import countries from '../data/countries.json'
 
 const Map = () => {
 
   const [position, setPosition] = useState([51.505, -0.09]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   const outerBounds = [
     [50.505, -29.09],
@@ -15,15 +18,26 @@ const Map = () => {
   const ClickMarker = () => {
     useMapEvents({
       click(e){
+        const point = turf.point([e.latlng.lng, e.latlng.lat]);
         setPosition([e.latlng.lat, e.latlng.lng]);
+
+        for(let feature of countries.features){
+          if(turf.booleanPointInPolygon(point, feature)) {
+            setSelectedCountry({
+              name: feature.properties.name,
+              iso3: feature.properties["ISO3166-1-Alpha-3"],
+              center: [e.latlng.lat, e.latlng.lng],
+            });
+            break;
+          }
+        }
+
+        console.log(selectedCountry);
       }
     });
 
     return (
       <Marker position={position}>
-        <Popup>
-          Marker at position {position[0].toFixed(3)}, {position[1].toFixed(3)}
-        </Popup>
       </Marker>
     )
   }
