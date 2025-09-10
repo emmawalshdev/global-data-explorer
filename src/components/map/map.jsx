@@ -52,9 +52,7 @@ const Map = () => {
             </Popup>
           </Marker>
       }
-
     </MapContainer>
-
   );
 };
 
