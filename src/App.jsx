@@ -11,7 +11,6 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   function handleSetCountry([lng, lat]){
-    // setSelectedCountry(country);
     const point = turf.point([lng, lat]);
 
     for(let feature of countries.features){
@@ -19,17 +18,18 @@ function App() {
         setSelectedCountry({
           name: feature.properties.name,
           iso3: feature.properties["ISO3166-1-Alpha-3"],
-          center: [lng, lat],
+          center: [lat, lng],
         });
        break;
        }
+       console.log(selectedCountry);
     }
   }
 
   
   return (
     <>
-      <Map setChosenCountry={handleSetCountry} selectedCountry={selectedCountry}/>
+      <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
       <Chart/>
       <Gdp/>
     </>

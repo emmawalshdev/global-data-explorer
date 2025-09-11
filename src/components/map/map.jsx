@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import * as turf from "@turf/turf";
 import countries from '../data/countries.json'
 
-const Map = ( {setChosenCountry}, selectedCountry ) => {
+const Map = ( {setChosenCountry, showSelectedCountry} ) => {
 
   const [position, setPosition] = useState([51.505, -0.09]);
 
@@ -19,6 +19,8 @@ const Map = ( {setChosenCountry}, selectedCountry ) => {
       click(e){
         setPosition([e.latlng.lat, e.latlng.lng]);
         setChosenCountry([e.latlng.lng, e.latlng.lat]);
+
+        console.log(showSelectedCountry)
       }
     });
   }
@@ -33,10 +35,10 @@ const Map = ( {setChosenCountry}, selectedCountry ) => {
       />
       <ClickMarker/>
       <GeoJSON data={countries} style={{color: "blue"}}></GeoJSON>
-      {selectedCountry &&
-            <Marker position={selectedCountry.center}>
+      {showSelectedCountry &&
+            <Marker position={showSelectedCountry.center}>
             <Popup>
-              {selectedCountry.name}
+              {showSelectedCountry.name}
             </Popup>
           </Marker>
       }
