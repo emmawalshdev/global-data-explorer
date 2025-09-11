@@ -2,7 +2,11 @@ import React from "react";
 
 const Chart = () => {
     
-
+    // chart types
+    // 1 barchart
+    
+    // data types
+    // 1 GPD
     async function getData() {
         const url = "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.RNEW.ZS?format=json";
 
