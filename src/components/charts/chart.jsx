@@ -1,15 +1,15 @@
 import React from "react";
 
-const Chart = () => {
+const Chart = ( {selectedCountryCode} ) => {
     
     // chart types
     // 1 barchart
     
     // data types
     // 1 GPD
-    async function getData() {
-        const url = "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.RNEW.ZS?format=json";
 
+    async function getData() {
+        const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/EG.ELC.RNEW.ZS?format=json`;
         try {
             const response = await fetch(url);
             if(!response.ok){
@@ -23,7 +23,6 @@ const Chart = () => {
             console.error(error.message);
         }
     }
-
 
     getData();
 

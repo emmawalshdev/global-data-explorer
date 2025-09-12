@@ -9,6 +9,11 @@ import countries from './components/data/countries.json'
 function App() {
 
   const [selectedCountry, setSelectedCountry] = useState(null);
+  let selectedCountryCode;
+
+  if (selectedCountry != null) {
+    selectedCountryCode = selectedCountry.iso2;
+  }
 
   function handleSetCountry([lng, lat]){
     const point = turf.point([lng, lat]);
@@ -17,12 +22,11 @@ function App() {
        if(turf.booleanPointInPolygon(point, feature)) {
         setSelectedCountry({
           name: feature.properties.name,
-          iso3: feature.properties["ISO3166-1-Alpha-3"],
+          iso2: feature.properties["ISO3166-1-Alpha-2"],
           center: [lat, lng],
         });
        break;
        }
-       console.log(selectedCountry);
     }
   }
 
@@ -30,7 +34,7 @@ function App() {
   return (
     <>
       <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
-      <Chart/>
+      <Chart selectedCountryCode={selectedCountryCode}/>
       <Gdp/>
     </>
   )
