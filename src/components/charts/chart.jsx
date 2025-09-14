@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 const Chart = ( {selectedCountryCode} ) => {
     
@@ -7,6 +7,8 @@ const Chart = ( {selectedCountryCode} ) => {
     
     // data types
     // 1 GPD
+
+    const [loading, setLoading] = useState(true);
 
     async function getData() {
         const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/EG.ELC.RNEW.ZS?format=json`;
@@ -26,8 +28,10 @@ const Chart = ( {selectedCountryCode} ) => {
 
     getData();
 
+    if (loading) return <div>Loading..</div>
     return (
         <div>Chart</div>
+
     )
 }
 
