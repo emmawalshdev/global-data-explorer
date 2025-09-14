@@ -19,8 +19,6 @@ const Map = ( {setChosenCountry, showSelectedCountry} ) => {
       click(e){
         setPosition([e.latlng.lat, e.latlng.lng]);
         setChosenCountry([e.latlng.lng, e.latlng.lat]);
-
-        console.log(showSelectedCountry)
       }
     });
   }

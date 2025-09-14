@@ -9,24 +9,40 @@ const Chart = ( {selectedCountryCode} ) => {
     // 1 GPD
 
     const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
 
-    async function getData() {
-        const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/EG.ELC.RNEW.ZS?format=json`;
-        try {
-            const response = await fetch(url);
-            if(!response.ok){
-                throw new Error(`Response status:
-                ${response.status}`)
-            }
+    useEffect(() => {
+        console.log(data)
+    })
+
+    useEffect(() => {
+        if(!selectedCountryCode) return;
+        const controller = new AbortController();
+
+        async function getData() {
+            const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/EG.ELC.RNEW.ZS?format=json`;
+            
+            try {
+                const response = await fetch(url, { signal: controller.signal });
+                if(!response.ok){
+                    throw new Error(`Response status:
+                    ${response.status}`)
+                }
+        
+                const result = await response.json();
     
-            const result = await response.json();
-            console.log(result);
-        } catch (error) {
-            console.error(error.message);
+                const raw = result[1] || [];
+                const formated = raw.filter(item => item.value !== null && item.date).map(item => ({ year: item.date, value: Number(item.value)})).sort((a,b) => Number(a.year) - Number(b.year));
+                setData(formated);
+            } catch (error) {
+                console.error(error.message);
+            }
         }
-    }
+        getData();
+        return() => controller.abort(); //cleanup upon unmount
 
-    getData();
+    }, [selectedCountryCode]);
+
 
     if (loading) return <div>Loading..</div>
     return (
