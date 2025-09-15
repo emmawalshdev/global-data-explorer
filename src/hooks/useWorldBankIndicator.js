@@ -7,6 +7,8 @@ const useWorldBankIndicator = (selectedCountryCode) => {
 
     useEffect(() => {
     console.log('run 2');
+    setLoading(true);
+    setData([]);
 
         if(!selectedCountryCode) return;
 
