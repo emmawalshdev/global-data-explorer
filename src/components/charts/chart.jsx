@@ -22,7 +22,7 @@ const Chart = ( {selectedCountryCode} ) => {
                 <YAxis unit="%" />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="value" name="Renewable Electricity (%)" stroke="#8884d8" />
+                <Line type="monotone" dataKey="value" name="GDP" stroke="#8884d8" />
             </LineChart>
         </ResponsiveContainer>
     )
