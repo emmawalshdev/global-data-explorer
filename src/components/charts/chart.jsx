@@ -10,7 +10,7 @@ const Chart = ( {selectedCountryCode} ) => {
     // data types
     // 1 GPD
 
-    const { data, loading } = useWorldBankIndicator(selectedCountryCode);
+    const { data, loading, countryName } = useWorldBankIndicator(selectedCountryCode);
 
     if (loading) return <div>Loading..</div>
     if (!data) return <div>No data available for this country</div>
@@ -22,7 +22,7 @@ const Chart = ( {selectedCountryCode} ) => {
                 <YAxis unit="%" />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="value" name="GDP" stroke="#8884d8" />
+                <Line type="monotone" dataKey="value" name={`${countryName} - GDP`} stroke="#8884d8" />
             </LineChart>
         </ResponsiveContainer>
     )

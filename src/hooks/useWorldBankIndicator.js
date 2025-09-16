@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
 
 const useWorldBankIndicator = (selectedCountryCode) => {
-    console.log('run', selectedCountryCode);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [countryName, setCountryName] = useState([]);
 
     useEffect(() => {
-    console.log('run 2');
     setLoading(true);
     setData([]);
 
@@ -25,8 +24,11 @@ const useWorldBankIndicator = (selectedCountryCode) => {
                 }
         
                 const result = await response.json();
-    
                 const raw = result[1] || [];
+
+                let countryName = raw[0]?.country?.value;
+                setCountryName(countryName);
+
                 const formated = raw.filter(item => item.value !== null && item.date).map(item => ({ year: item.date, value: Number(item.value)})).sort((a,b) => Number(a.year) - Number(b.year));
                 setData(formated);
             } catch (error) {
@@ -39,7 +41,7 @@ const useWorldBankIndicator = (selectedCountryCode) => {
         return() => controller.abort(); //cleanup upon unmount
 
     }, [selectedCountryCode]);
-        return { data, loading };
+        return { data, loading, countryName };
 
 }
 
