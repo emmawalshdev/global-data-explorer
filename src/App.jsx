@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import Map from './components/map/map'
-import Chart from './components/charts/chart'
-import Gdp from './components/charts/gdp'
+import Map from './components/map/Map'
+import Chart from './components/charts/Chart'
+import Gdp from './components/charts/Gdp'
 import * as turf from "@turf/turf";
 import countries from './components/data/countries.json'
 import DataSelector from './components/DatasetSelector'
