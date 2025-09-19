@@ -11,10 +11,12 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
 
         if(!selectedCountryCode) return;
 
+        let selectedDatasetCode = selectedDataset.code
+
         const controller = new AbortController();
 
         async function getData() {
-            const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/${selectedDataset}?format=json`;
+            const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/${selectedDatasetCode}?format=json`;
             console.log(url);
             try {
                 const response = await fetch(url, { signal: controller.signal });

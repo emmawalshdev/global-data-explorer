@@ -4,13 +4,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const Chart = ( {selectedCountryCode, selectedDataset} ) => {
     
-    // chart types
-    // 1 barchart
-    
-    // data types
-    // 1 GPD
-
     const { data, loading, countryName } = useWorldBankIndicator(selectedCountryCode, selectedDataset);
+
+    let selectedDatasetName = selectedDataset.name;
 
     if (loading) return <div>Loading..</div>
     if (!data) return <div>No data available for this country</div>
@@ -22,7 +18,7 @@ const Chart = ( {selectedCountryCode, selectedDataset} ) => {
                 <YAxis unit="%" />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="value" name={`${countryName} - ${selectedDataset}`} stroke="#8884d8" />
+                <Line type="monotone" dataKey="value" name={`${countryName} - ${selectedDatasetName}`} stroke="#8884d8" />
             </LineChart>
         </ResponsiveContainer>
     )

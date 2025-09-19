@@ -12,7 +12,12 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   let selectedCountryCode;
 
-  const [selectedDataset, setSelectedDataset] = useState("NY.GDP.MKTP.KD.ZG");
+  const [selectedDataset, setSelectedDataset] = useState(
+   {
+    code:  "NY.GDP.MKTP.KD.ZG",
+    name: "GDP Growth (%)"
+   }
+  );
 
   if (selectedCountry != null) {
     selectedCountryCode = selectedCountry.iso2;
