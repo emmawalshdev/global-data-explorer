@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from "react";
 
-const useWorldBankIndicator = (selectedCountryCode) => {
+const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [countryName, setCountryName] = useState([]);
 
     useEffect(() => {
-    setLoading(true);
-    setData([]);
+        setLoading(true);
+        setData([]);
 
         if(!selectedCountryCode) return;
 
         const controller = new AbortController();
 
         async function getData() {
-            const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/NY.GDP.MKTP.KD?format=json`;
+            const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/${selectedDataset}?format=json`;
             console.log(url);
             try {
                 const response = await fetch(url, { signal: controller.signal });
@@ -40,7 +40,7 @@ const useWorldBankIndicator = (selectedCountryCode) => {
         getData();
         return() => controller.abort(); //cleanup upon unmount
 
-    }, [selectedCountryCode]);
+    }, [selectedCountryCode, selectedDataset]);
         return { data, loading, countryName };
 
 }

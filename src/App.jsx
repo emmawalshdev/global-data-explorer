@@ -44,7 +44,7 @@ function App() {
     <>
       <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
       <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
-      <Chart selectedCountryCode={selectedCountryCode}/>
+      <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
       <Gdp/>
     </>
   )
