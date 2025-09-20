@@ -6,6 +6,7 @@ import Gdp from './components/charts/Gdp'
 import * as turf from "@turf/turf";
 import countries from './components/data/countries.json'
 import DataSelector from './components/DatasetSelector'
+import PageHeading from './components/layout/PageHeading'
 
 function App() {
 
@@ -47,10 +48,14 @@ function App() {
   
   return (
     <>
-      <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
-      <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
-      <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
-      <Gdp/>
+      <PageHeading title="Global Data Explorer"/>
+      <div className="flex gap-4">
+        <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
+      </div>
+      <div className="flex gap-4">
+        <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
+        <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
+    </div>
     </>
   )
 }
