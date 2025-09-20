@@ -2,7 +2,6 @@
 import React, {useState} from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import * as turf from "@turf/turf";
 import countries from '../data/countries.json'
 
 const Map = ( {setChosenCountry, showSelectedCountry} ) => {

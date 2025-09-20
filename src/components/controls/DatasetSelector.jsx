@@ -1,14 +1,19 @@
 import React from 'react';
 
 const DataSelector = ({selectedDataset, datasets, onChange}) => {
-    return (
-      <>
-       <label htmlFor="dataset-select">
-        Choose a dataset:
+  const selectId = "dataset-select";  
+  
+  return (
+      <div className="text-left w-full max-w-xs">
+       <label 
+         htmlFor={selectId}
+         className="text-sm font-bold text-gray-700 mb-1">
+          Choose a dataset:
       </label>
         <select 
-          id="dataset-select"
+          id={selectId}
           value={selectedDataset}
+          className="rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm"
           onChange={(e) => {
             const dataset = datasets.find(d => d.code === e.target.value);
             onChange(dataset);
@@ -21,7 +26,7 @@ const DataSelector = ({selectedDataset, datasets, onChange}) => {
                 </option>
             ))}
           </select>
-      </>
+      </div>
     )
 }
 
