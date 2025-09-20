@@ -2,7 +2,12 @@ import React from 'react';
 
 const DataSelector = ({selectedDataset, datasets, onChange}) => {
     return (
-        <select
+      <>
+       <label htmlFor="dataset-select">
+        Choose a dataset:
+      </label>
+        <select 
+          id="dataset-select"
           value={selectedDataset}
           onChange={(e) => {
             const dataset = datasets.find(d => d.code === e.target.value);
@@ -16,6 +21,7 @@ const DataSelector = ({selectedDataset, datasets, onChange}) => {
                 </option>
             ))}
           </select>
+      </>
     )
 }
 
