@@ -21,7 +21,7 @@ function App() {
   );
 
   if (selectedCountry != null) {
-    selectedCountryCode = selectedCountry.iso2;
+    selectedCountryCode = selectedCountry.iso2.toUpperCase();
   }
 
   const datasets = [

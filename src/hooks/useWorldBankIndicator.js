@@ -4,12 +4,13 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [countryName, setCountryName] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         setLoading(true);
         setData([]);
 
-        if(!selectedCountryCode) return;
+        if(!selectedCountryCode ) return;
 
         let selectedDatasetCode = selectedDataset.code
 
@@ -17,7 +18,6 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
 
         async function getData() {
             const url = `https://api.worldbank.org/v2/country/${selectedCountryCode}/indicator/${selectedDatasetCode}?format=json`;
-            console.log(url);
             try {
                 const response = await fetch(url, { signal: controller.signal });
                 if(!response.ok){
@@ -28,6 +28,13 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
                 const result = await response.json();
                 const raw = result[1] || [];
 
+                if(raw.length === 0) {
+                    setData([]);
+                    setCountryName(selectedCountryCode);
+                    setError(true);
+                    return;
+                }
+                setError(null);
                 let countryName = raw[0]?.country?.value;
                 setCountryName(countryName);
 
@@ -35,6 +42,9 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
                 setData(formated);
             } catch (error) {
                 console.error(error.message);
+                setError(error.message);
+                setData([]);
+                setCountryName("");
             } finally {
                 setLoading(false);
             }
@@ -43,7 +53,7 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
         return() => controller.abort(); //cleanup upon unmount
 
     }, [selectedCountryCode, selectedDataset]);
-        return { data, loading, countryName };
+        return { data, loading, countryName, error };
 
 }
 

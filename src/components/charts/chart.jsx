@@ -4,10 +4,12 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const Chart = ( {selectedCountryCode, selectedDataset} ) => {
     
-    const { data, loading, countryName } = useWorldBankIndicator(selectedCountryCode, selectedDataset);
+    const { data, loading, countryName, error } = useWorldBankIndicator(selectedCountryCode, selectedDataset);
+    if(!selectedCountryCode) return <div>No country selected, please click on the map to search the database.</div>;
 
     let selectedDatasetName = selectedDataset.name;
 
+    if (error){ return <div>Error retrieving data available for this country</div>}
     if (loading) return <div>Loading..</div>
     if (!data) return <div>No data available for this country</div>
     return (
