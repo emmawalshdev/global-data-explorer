@@ -5,13 +5,30 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const Chart = ( {selectedCountryCode, selectedDataset} ) => {
     
     const { data, loading, countryName, error } = useWorldBankIndicator(selectedCountryCode, selectedDataset);
-    if(!selectedCountryCode) return <div>No country selected, please click on the map to search the database.</div>;
 
     let selectedDatasetName = selectedDataset.name;
 
-    if (error){ return <div>Error retrieving data available for this country</div>}
-    if (loading) return <div>Loading..</div>
-    if (!data) return <div>No data available for this country</div>
+    if(!selectedCountryCode) {
+        return  (
+            <div className="h-32 flex items-center justify-center border">
+              No country selected, please click on the map to search the database.
+        </div>
+        )
+
+    } else if(error || loading || !data) {
+        let message = "";
+
+        if (error){ message = "Error retrieving data available for this country";}
+        else if (loading) {message = "Loading.." }
+        else if (!data) {message = "No data available for this country"}
+
+        return (
+            <div className="h-32 flex items-center justify-center border">
+                {message}
+            </div>
+        )
+    }
+
     return (
         <ResponsiveContainer width="100%" height={400}>
             <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
