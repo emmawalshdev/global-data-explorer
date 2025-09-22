@@ -10,7 +10,7 @@ const Chart = ( {selectedCountryCode, selectedDataset} ) => {
 
     if(!selectedCountryCode) {
         return  (
-            <div className="h-32 flex items-center justify-center border">
+            <div className="h-100 flex items-center justify-center border p-3">
               No country selected, please click on the map to search the database.
         </div>
         )
