@@ -6,7 +6,6 @@ import countries from '../data/countries.json'
 
 const Map = ( {setChosenCountry, showSelectedCountry} ) => {
 
-  const [position, setPosition] = useState([51.505, -0.09]);
 
   const outerBounds = [
     [50.505, -29.09],
@@ -16,12 +15,17 @@ const Map = ( {setChosenCountry, showSelectedCountry} ) => {
   const ClickMarker = () => {
     useMapEvents({
       click(e){
-        setPosition([e.latlng.lat, e.latlng.lng]);
         setChosenCountry([e.latlng.lng, e.latlng.lat]);
       }
     });
   }
 
+  const countryStyle = (feature) => ({
+    fillColor: "lightblue",
+    fillOpacity: 0.3,
+    weight: 0.1,
+  });
+  
 
   return (
     <MapContainer bounds={outerBounds} zoom={5} style={{ height: "500px", width: "700px" }}>
@@ -31,7 +35,7 @@ const Map = ( {setChosenCountry, showSelectedCountry} ) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
       <ClickMarker/>
-      <GeoJSON data={countries} style={{color: "blue"}}></GeoJSON>
+      <GeoJSON data={countries} style={{ countryStyle }}></GeoJSON>
       {showSelectedCountry &&
             <Marker position={showSelectedCountry.center}>
             <Popup>
