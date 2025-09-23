@@ -48,7 +48,7 @@ function App() {
   let pageSubtitle = "Explore global data by choosing a country and discovering its population, economy, and more.";
   
   return (
-    <>
+    <div className="container rounded-sm bg-white p-6 m-2">
       <PageHeading title="Global Data Explorer" subtitle={pageSubtitle}/>
       <div className="mb-4">
         <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
@@ -57,7 +57,7 @@ function App() {
         <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
         <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
     </div>
-    </>
+    </div>
   )
 }
 
