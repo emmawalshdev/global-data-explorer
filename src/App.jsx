@@ -45,10 +45,11 @@ function App() {
     }
   }
 
+  let pageSubtitle = "Explore global data by choosing a country and discovering its population, economy, and more.";
   
   return (
     <>
-      <PageHeading title="Global Data Explorer"/>
+      <PageHeading title="Global Data Explorer" subtitle={pageSubtitle}/>
       <div className="mb-4">
         <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
       </div>
