@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import Map from './components/map/Map'
-import Chart from './components/charts/Chart'
-import Gdp from './components/charts/Gdp'
+import Chart from './components/charts/chart'
+import TopTenCountries from './components/charts/TopTenCountries'
 import * as turf from "@turf/turf";
 import countries from './components/data/countries.json'
 import DataSelector from './components/controls/DatasetSelector'
@@ -48,7 +48,7 @@ function App() {
   let pageSubtitle = "Explore global data by choosing a country and discovering its population, economy, and more.";
   
   return (
-    <div className="container rounded-sm bg-white p-6 m-2">
+    <div className="container rounded-lg bg-white p-6 m-2">
       <PageHeading title="Global Data Explorer" subtitle={pageSubtitle}/>
       <div className="mb-4">
         <DataSelector datasets={datasets} selectedDataset={selectedDataset} onChange={setSelectedDataset}></DataSelector>
@@ -57,6 +57,7 @@ function App() {
         <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
         <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
     </div>
+      <TopTenCountries/>
     </div>
   )
 }
