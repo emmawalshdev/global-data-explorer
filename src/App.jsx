@@ -57,7 +57,7 @@ function App() {
         <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
         <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
     </div>
-      <TopTenCountries/>
+      <TopTenCountries selectedDataset={selectedDataset}/>
     </div>
   )
 }
