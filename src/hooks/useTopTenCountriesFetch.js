@@ -40,8 +40,11 @@ const useTopTenCountriesFetch  = () => {
                     .filter(
                         item => item.value !== null && item.date
                     ).map(
-                        item => ({ year: item.date, value: Number(item.value)})
-                    ).sort((a,b) => Number(a.year) - Number(b.year));
+                        item => (
+                            { year: item.date,
+                              country: item.country.value,
+                              value: Number(item.value)})
+                    ).sort((a,b) => Number(b.year) - Number(a.year));
                     setData(formated)
                     console.log(formated);
             } catch (error) {
