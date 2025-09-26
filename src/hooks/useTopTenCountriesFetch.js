@@ -43,6 +43,7 @@ const useTopTenCountriesFetch  = () => {
                         item => ({ year: item.date, value: Number(item.value)})
                     ).sort((a,b) => Number(a.year) - Number(b.year));
                     setData(formated)
+                    console.log(formated);
             } catch (error) {
                 console.error(error.message);
                 setError(error.message);
@@ -51,6 +52,9 @@ const useTopTenCountriesFetch  = () => {
                 setLoading(false);
             }
         }
+
+        getData();
+        return() => controller.abort(); //cleanup
     }, [selectedDatasetCode]);
     // }, [selectedDataset]
     return data;
