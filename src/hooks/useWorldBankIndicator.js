@@ -51,7 +51,6 @@ const useWorldBankIndicator = (selectedCountryCode, selectedDataset) => {
         }
         getData();
         return() => controller.abort(); //cleanup upon unmount
-
     }, [selectedCountryCode, selectedDataset]);
         return { data, loading, countryName, error };
 

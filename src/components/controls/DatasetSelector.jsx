@@ -3,7 +3,6 @@ import React from 'react';
 const DataSelector = ({selectedDataset, datasets, onChange}) => {
   const selectId = "dataset-select";  
   
-  console.log(selectedDataset.name);
   return (
       <div className="text-left w-full max-w-xs">
        <label 

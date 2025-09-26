@@ -20,8 +20,9 @@ const useTopTenCountriesFetch  = () => {
             const url = `https://api.worldbank.org/v2/country/all/indicator/${selectedDatasetCode}?format=json`;
     
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, { signal: controller.signal });
     
+                console.log(response);
                 if(!response.ok){
                     throw new Error(`Response status: ${response.status}`)
                 }
@@ -34,6 +35,7 @@ const useTopTenCountriesFetch  = () => {
                     setError(true);
                     return;
                 }
+                console.log(raw);
 
                 setError(null);
                 const formated = raw
@@ -44,9 +46,9 @@ const useTopTenCountriesFetch  = () => {
                             { year: item.date,
                               country: item.country.value,
                               value: Number(item.value)})
-                    ).sort((a,b) => Number(b.year) - Number(a.year));
+                    ).sort((a,b) => b.value - a.value)
+                    .slice(0, 10);
                     setData(formated)
-                    console.log(formated);
             } catch (error) {
                 console.error(error.message);
                 setError(error.message);
@@ -60,7 +62,9 @@ const useTopTenCountriesFetch  = () => {
         return() => controller.abort(); //cleanup
     }, [selectedDatasetCode]);
     // }, [selectedDataset]
-    return data;
+
+
+    return { data, loading, error };
 
 }
 

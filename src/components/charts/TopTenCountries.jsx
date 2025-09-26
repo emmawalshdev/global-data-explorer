@@ -1,6 +1,6 @@
 import React from "react";
 import useTopTenCountriesFetch from "../../hooks/useTopTenCountriesFetch";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
 const TopTenCountries = ( {selectedDataset} ) => {
 
@@ -12,9 +12,10 @@ const TopTenCountries = ( {selectedDataset} ) => {
     //     </div>
     // )}
 
+    console.log(data);
     let selectedDatasetName = selectedDataset.name;
 
-    if (error || loading || data) {
+    if (error || loading || !data) {
         let message = "";
 
         if(error){ message = "Error retrieving top ten country data result";}
@@ -30,16 +31,12 @@ const TopTenCountries = ( {selectedDataset} ) => {
     return (
         <div style={{ width: '100%', height: '500px' }}>
         <h2>Top Ten Countries:</h2>
-        <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
-                <YAxis unit="%" />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="value" name={`Top Ten Countries - ${selectedDatasetName}`} stroke="#8884d8" />
-            </LineChart>
-        </ResponsiveContainer>
+        <BarChart width={500} height={300} data={data}>
+            <XAxis dataKey="country" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#4caf50" />
+        </BarChart>
     </div>
     )
 }
