@@ -6,12 +6,6 @@ const TopTenCountries = ( {selectedDataset} ) => {
 
     const { data, loading, error } = useTopTenCountriesFetch();
 
-    // if(!selectedDataset) {return (
-    //     <div className="h-100 flex item-center justify-center border p-3">
-    //         No 
-    //     </div>
-    // )}
-
     console.log(data);
     let selectedDatasetName = selectedDataset.name;
 
