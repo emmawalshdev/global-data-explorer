@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Map from './components/map/Map'
 import Chart from './components/charts/chart'
-import TopTenCountries from './components/charts/TopTenCountries'
+import CountriesIndicator from './components/charts/CountriesIndicator'
 import * as turf from "@turf/turf";
 import countries from './components/data/countries.json'
 import DataSelector from './components/controls/DatasetSelector'
@@ -57,7 +57,7 @@ function App() {
         <Map setChosenCountry={handleSetCountry} showSelectedCountry={selectedCountry}/>
         <Chart selectedCountryCode={selectedCountryCode} selectedDataset={selectedDataset}/>
     </div>
-      <TopTenCountries selectedDataset={selectedDataset}/>
+      <CountriesIndicator />
     </div>
   )
 }
