@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 
-const useCountriesIndicator = (countryCodes = [], datasetCode) => {
+const useCountriesIndicator = (countryCodes, datasetCode) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
+    console.log('test2', countryCodes, datasetCode);
+
     if (!countryCodes.length || !datasetCode) return;
+
+    console.log('fin data',countryCodes);
 
     const controller = new AbortController();
     setLoading(true);
@@ -37,7 +42,7 @@ const useCountriesIndicator = (countryCodes = [], datasetCode) => {
         // Convert object to array sorted by year
         const finalData = Object.values(formatted).sort((a, b) => a.year - b.year);
 
-        console.log(finalData);
+        console.log('fin data',finalData);
         
         setData(finalData);
       } catch (err) {

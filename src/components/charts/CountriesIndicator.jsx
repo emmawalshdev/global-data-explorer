@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
+
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import useCountriesIndicator from "../../hooks/useCountriesIndicator";
 
-const CountriesLineChart = ({ countries = ["US", "CN", "IN"], datasetCode }) => {
-  const { data, loading, error } = useCountriesIndicator(countries, datasetCode);
+const CountriesIndicator = ({ countries, datasetCode = "SP.POP.TOTL" }) => {
+  const stableCountries = useMemo(() => countries || ["US", "CN", "IN"], [countries]);
+  const { data, loading, error } = useCountriesIndicator(stableCountries, datasetCode);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -16,7 +18,7 @@ const CountriesLineChart = ({ countries = ["US", "CN", "IN"], datasetCode }) => 
         <YAxis />
         <Tooltip />
         <Legend />
-        {countries.map(code => (
+        {stableCountries.map(code => (
           <Line key={code} type="monotone" dataKey={code} stroke={`#${Math.floor(Math.random()*16777215).toString(16)}`} />
         ))}
       </LineChart>
@@ -24,4 +26,4 @@ const CountriesLineChart = ({ countries = ["US", "CN", "IN"], datasetCode }) => 
   );
 };
 
-export default CountriesLineChart;
+export default CountriesIndicator;
